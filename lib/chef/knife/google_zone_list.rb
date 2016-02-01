@@ -29,6 +29,7 @@ class Chef
         zone_list = [
           ui.color("name", :bold),
           ui.color('status', :bold),
+          ui.color('region', :bold),
           ui.color('deprecation', :bold),
           ui.color('maintainance window', :bold)].flatten.compact
 
@@ -45,10 +46,11 @@ class Chef
               ui.color(status, :red)
             end
           end
+          zone_list << URI(zone.region).path.split('/').last
           deprecation_state = "-"
           if zone.deprecated.respond_to?('state')
-            deprecation_state = zone.deprecated.state  
-          end 
+            deprecation_state = zone.deprecated.state
+          end
           zone_list << deprecation_state
           unless zone.maintenance_windows.nil?
             maintenance_window = zone.maintenance_windows.map do |mw|
