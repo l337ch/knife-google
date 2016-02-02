@@ -40,6 +40,8 @@ require 'chef/knife/google_setup'
 require 'support/spec_google_base'
 
 RSpec.configure do |config|
+  config.expect_with(:rspec){ |c| c.syntax =  [:should, :expect] }
   config.include SpecData
   config.include Mocks
+  config.mock_with(:rspec) { |m|  m.syntax = [:should, :expect] }
 end
